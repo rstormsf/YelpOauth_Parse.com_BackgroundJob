@@ -1,3 +1,5 @@
+Parse.initialize("YOUR APP ID ", "YOUR KEY");
+
 Parse.Cloud.job("Yelp", function(request, response) {
     var oauth = require('cloud/oauth');
     var sha1 = require('cloud/sha1');
@@ -59,7 +61,7 @@ Parse.Cloud.job("Yelp", function(request, response) {
             var jsonresp = JSON.parse(httpResponse.text);
             var YelpObject = Parse.Object.extend("YelpAccount");
             var query = new Parse.Query(YelpObject);
-            // var yelpObject = new YelpObject();
+
             query.first({
               success: function(yelpObject) {
                 yelpObject.set({
@@ -75,7 +77,6 @@ Parse.Cloud.job("Yelp", function(request, response) {
                 });
                 yelpObject.save(null).then(function(object) {
                     response.message(JSON.stringify(httpResponse.text));
-                    // status.success("Migration completed successfully.");
                     response.success(httpResponse.text);
 
                 });
